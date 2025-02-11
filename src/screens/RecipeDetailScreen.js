@@ -1,30 +1,46 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, FlatList } from "react-native";
+import { ScrollView, Text, StyleSheet, Image, FlatList, View } from "react-native";
 
 const RecipeDetailScreen = ({ route }) => {
     const { recipe } = route.params
 
     const ingredients = [];
+    const measures = [];
     for (let i = 1; i <= 20; i++) {
         const ingredient = recipe[`strIngredient${i}`];
-        { ingredient ? ingredients.push(ingredient) : null }
+        { ingredient && ingredient.trim() !== '' ? ingredients.push(ingredient) : null }
+        const measure = recipe[`strMeasure${i}`]
+        { measure && measure.trim() !== '' ? measures.push(measure) : null }
     }
 
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
             <Image
                 source={{ uri: recipe.strMealThumb }}
                 style={styles.image}
             />
             <Text style={styles.title}>{recipe.strMeal}</Text>
-            <FlatList
-                data={ingredients}
-                keyExtractor={(item, index) => index.toString()}
-                renderItem={({ item }) => (
-                    <Text style={styles.ingredient}>{item}</Text>
-                )}
-            />
-        </View>
+            <Text style={styles.sub}>Ingredients</Text>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                <FlatList
+                    data={ingredients}
+                    keyExtractor={(item) => item.idMeal}
+                    renderItem={({ item }) => (
+                        <Text style={styles.ingredient}>{item}</Text>
+                    )}
+                />
+                <FlatList
+                    data={measures}
+                    keyExtractor={(item) => item.idMeal}
+                    renderItem={({ item }) => (
+                        <Text style={styles.ingredient}>{item}</Text>
+                    )}
+                />
+            </View>
+            <Text style={styles.ingredient}>Total of ingredients : {ingredients.length}</Text>
+            <Text style={styles.sub}>Instructions</Text>
+            <Text style={styles.instruction} >{recipe.strInstructions}</Text>
+        </ScrollView>
     );
 };
 
@@ -34,9 +50,10 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
     },
     title: {
-        fontSize: 24,
+        fontSize: 28,
         fontWeight: "bold",
-        marginBottom: 10,
+        marginTop: 10,
+        textAlign: 'center'
     },
     category: {
         fontSize: 18,
@@ -50,8 +67,18 @@ const styles = StyleSheet.create({
     },
     image: {
         width: '100%',
-        height: 200,
-        borderRadius: 10
+        height: 260,
+        borderRadius: 10,
+    },
+    instruction: {
+        fontSize: 16,
+        lineHeight: 22,
+        color: "#333",
+    },
+    sub: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        paddingTop: 8
     }
 });
 
