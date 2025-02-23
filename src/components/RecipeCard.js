@@ -2,12 +2,21 @@ import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
-const RecipeCard = ({ recipes, onPress }) => {
+
+const RecipeCard = ({ recipes, onPress, isFav }) => {
     return (
         <TouchableOpacity style={styles.card} onPress={onPress}>
             <Image source={{ uri: recipes.strMealThumb }} style={styles.image} />
             <View style={styles.textContainer}>
-                <Text style={styles.title}>{recipes.strMeal}</Text>
+                <View style={{ flex: 1, flexDirection: 'row' }}>
+                    <Text style={styles.title}>{recipes.strMeal}</Text>
+                    <MaterialIcons
+                        name={isFav ? "favorite" : ''}
+                        size={28}
+                        color={isFav ? "#ff6f61" : "#fff"}
+                    />
+                </View>
+
                 <View style={styles.footer}>
                     <Text style={styles.category}>Category: {recipes.strCategory}</Text>
                     <MaterialIcons name="arrow-forward-ios" size={24} color="black" />
@@ -49,12 +58,12 @@ const styles = StyleSheet.create({
         color: "#555",
     },
     textContainer: {
-        flex:1,
+        flex: 1,
         paddingLeft: 10,
         justifyContent: 'center'
     },
     footer: {
-        flexDirection: 'row' , 
+        flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between'
     }

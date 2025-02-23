@@ -62,17 +62,22 @@ const styles = StyleSheet.create({
     },
     ingredient: {
         fontSize: 16,
-        lineHeight: 22,
+        //lineHeight: 22,
         color: "#333",
     },
     image: {
         width: '100%',
         height: 260,
         borderRadius: 10,
+        shadowColor: "black",
+        shadowOffset: { width: 0, height: 5 },
+        shadowOpacity: 1,
+        shadowRadius: 15,
+        elevation: 20,
     },
     instruction: {
         fontSize: 16,
-        lineHeight: 22,
+        //lineHeight: 22,
         color: "#333",
     },
     sub: {
