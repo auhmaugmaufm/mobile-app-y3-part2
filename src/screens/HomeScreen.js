@@ -96,8 +96,8 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         padding: 15,
         borderRadius: 50,
-        elevation: 5, // เพิ่มเงาสำหรับ Android
-        shadowColor: "#000", // เพิ่มเงาสำหรับ iOS
+        elevation: 5, 
+        shadowColor: "#000",
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.2,
         shadowRadius: 3,

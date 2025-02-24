@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
 import RecipeCard from "../components/RecipeCard";
 import { useFocusEffect } from "@react-navigation/native";
@@ -6,19 +6,17 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const FavoritesScreen = ({ navigation }) => {
 
-    const [favorites, setFavorites] = useState([])
+    const [favorites, setFavorite] = useState([])
 
-    useFocusEffect(
-        React.useCallback(() => {
-            loadFavorites(); // โหลด Favorites ทุกครั้งที่กลับมาหน้านี้
-        }, [])
-    );
+  useEffect(() => {
+    loadFavorites();
+  }, [favorites])
 
     const loadFavorites = async () => {
         try {
             const storedFavorites = await AsyncStorage.getItem('favorites');
             if (storedFavorites) {
-                setFavorites(JSON.parse(storedFavorites)); // อัปเดต state ถ้ามีค่า
+                setFavorite(JSON.parse(storedFavorites)); // อัปเดต state ถ้ามีค่า
             }
         } catch (error) {
             console.log('Failed to load favorites:', error);
